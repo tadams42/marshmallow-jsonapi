@@ -5,10 +5,13 @@ requires = ["setuptools>=64", "wheel"]
 
 [project]
 description = "JSON API 1.0 (https://jsonapi.org) formatting with marshmallow"
-name = "marshmallow-jsonapi"
-version = "0.24.1"
+name = "marshmallow-jsonapi-minfork"
+version = "0.25.0"
 readme = "README.rst"
 authors = [{ name = "Steven Loria", email = "sloria1@gmail.com" }]
+maintainers = [
+    { name = "Tomislav Adamic", email = "tomislav.adamic@gmail.com" },
+]
 keywords = [
     "marshmallow-jsonapi",
     "marshmallow",
@@ -32,10 +35,9 @@ license = "MIT"
 requires-python = ">=3.9"
 dependencies = ["marshmallow < 4", "flask>=2.2.0"]
 [project.urls]
-Source = "https://github.com/marshmallow-code/marshmallow-jsonapi"
+Source = "https://github.com/tadams42/marshmallow-jsonapi"
 Funding = "https://opencollective.com/marshmallow"
-"Bug Reports" = "https://github.com/marshmallow-code/marshmallow-jsonapi/issues"
-Documentation = "https://github.com/marshmallow-code/marshmallow-jsonapi"
+Documentation = "https://marshmallow-jsonapi.readthedocs.io/en/latest/"
 
 
 # Private, local dependencies

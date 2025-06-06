@@ -2,6 +2,14 @@
 marshmallow-jsonapi
 *******************
 
+⚠️ I still need this package in some of my projects. This for is minimal  work required
+to keep it working with newer Pythons and tooling (`uv`). For the time being, I have no
+resources to invest into any major work on this. Therefore, it will not be upgraded to
+marshmallow 4 in foreseeable future.
+
+⚠️ To allow integrating it in my projects, it is published on PyPI as
+`marshmallow-jsonapi-minfork`.
+
 .. image:: https://badgen.net/pypi/v/marshmallow-jsonapi
     :target: https://pypi.org/project/marshmallow-jsonapi/
     :alt: PyPI version
