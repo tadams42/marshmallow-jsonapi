@@ -50,3 +50,5 @@ _sandbox
 env
 venv
 .python-version
+
+uv.lock
