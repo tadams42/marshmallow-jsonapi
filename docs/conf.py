@@ -25,7 +25,7 @@ issues_github_path = "marshmallow-code/marshmallow-jsonapi"
 source_suffix = ".rst"
 master_doc = "index"
 project = "marshmallow-jsonapi"
-copyright = f"Steven Loria {dt.datetime.utcnow():%Y}"
+copyright = f"Steven Loria {dt.datetime.now(tz=dt.UTC):%Y}"
 
 version = release = marshmallow_jsonapi.__version__
 
@@ -37,7 +37,4 @@ exclude_patterns = ["_build"]
 on_rtd = os.environ.get("READTHEDOCS", None) == "True"
 
 if not on_rtd:  # only import and set the theme if we're building docs locally
-    import sphinx_rtd_theme
-
     html_theme = "sphinx_rtd_theme"
-    html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]

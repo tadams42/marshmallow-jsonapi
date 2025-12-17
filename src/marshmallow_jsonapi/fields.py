@@ -1,18 +1,18 @@
 """Includes all the fields classes from `marshmallow.fields` as well as
 fields for serializing JSON API-formatted hyperlinks.
 """
+
 import collections.abc
 
-from marshmallow import ValidationError, class_registry
-from marshmallow.fields import Field
+from marshmallow import Schema, ValidationError, class_registry
 
 # Make core fields importable from marshmallow_jsonapi
 from marshmallow.fields import *  # noqa
-from marshmallow.base import SchemaABC
-from marshmallow.utils import is_collection, missing as missing_, get_value
+from marshmallow.fields import Field
+from marshmallow.utils import get_value, is_collection
+from marshmallow.utils import missing as missing_
 
 from .utils import resolve_params
-
 
 _RECURSIVE_NESTED = "self"
 # JSON API disallows U+005F LOW LINE at the start of a member name, so we can
@@ -90,7 +90,7 @@ class Relationship(BaseRelationship):
         many=False,
         type_=None,
         id_field=None,
-        **kwargs
+        **kwargs,
     ):
         self.related_url = related_url
         self.related_url_kwargs = related_url_kwargs or {}
@@ -122,12 +122,11 @@ class Relationship(BaseRelationship):
     def schema(self):
         only = getattr(self, "only", None)
         exclude = getattr(self, "exclude", ())
-        context = getattr(self, "context", {})
 
-        if isinstance(self.__schema, SchemaABC):
+        if isinstance(self.__schema, Schema):
             return self.__schema
-        if isinstance(self.__schema, type) and issubclass(self.__schema, SchemaABC):
-            self.__schema = self.__schema(only=only, exclude=exclude, context=context)
+        if isinstance(self.__schema, type) and issubclass(self.__schema, Schema):
+            self.__schema = self.__schema(only=only, exclude=exclude)
             return self.__schema
         if isinstance(self.__schema, (str, bytes)):
             if self.__schema == _RECURSIVE_NESTED:
@@ -135,14 +134,11 @@ class Relationship(BaseRelationship):
                 self.__schema = parent_class(
                     only=only,
                     exclude=exclude,
-                    context=context,
                     include_data=self.parent.include_data,
                 )
             else:
                 schema_class = class_registry.get_class(self.__schema)
-                self.__schema = schema_class(
-                    only=only, exclude=exclude, context=context
-                )
+                self.__schema = schema_class(only=only, exclude=exclude)
             return self.__schema
         else:
             raise ValueError(

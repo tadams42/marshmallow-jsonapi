@@ -1,15 +1,18 @@
-import pytest
+import typing
+
 import marshmallow as ma
-from marshmallow import ValidationError, INCLUDE
+import pytest
+from marshmallow import INCLUDE, ValidationError
+from marshmallow.experimental.context import Context
 
 from marshmallow_jsonapi import Schema, fields
 from marshmallow_jsonapi.exceptions import IncorrectTypeError
 from tests.base import (
+    ArticleSchema,
     AuthorSchema,
     CommentSchema,
-    PostSchema,
     PolygonSchema,
-    ArticleSchema,
+    PostSchema,
 )
 
 
@@ -323,12 +326,17 @@ class TestCompoundDocuments:
             assert int(comment_id) in [c.id for c in post.comments]
 
     def test_include_data_with_schema_context(self, post):
-        class ContextTestSchema(Schema):
+        class ContextDict(typing.TypedDict):
+            some_value: str
+
+        ModelSchemaContext = Context[ContextDict]
+
+        class ModelSchema(Schema):
             id = fields.Str()
             from_context = fields.Method("get_from_context")
 
             def get_from_context(self, obj):
-                return self.context["some_value"]
+                return ModelSchemaContext.get()["some_value"]
 
             class Meta:
                 type_ = "people"
@@ -337,21 +345,20 @@ class TestCompoundDocuments:
             author = fields.Relationship(
                 "http://test.test/posts/{id}/author/",
                 related_url_kwargs={"id": "<id>"},
-                schema=ContextTestSchema,
+                schema=ModelSchema,
                 many=False,
             )
 
             class Meta(PostSchema.Meta):
                 pass
 
-        serialized = PostContextTestSchema(
-            include_data=("author",), context={"some_value": "Hello World"}
-        ).dump(post)
+        with ModelSchemaContext({"some_value": "Hello World"}):
+            serialized = PostContextTestSchema(include_data=("author",)).dump(post)
 
-        for included in serialized["included"]:
-            if included["type"] == "people":
-                assert "from_context" in included["attributes"]
-                assert included["attributes"]["from_context"] == "Hello World"
+            for included in serialized["included"]:
+                if included["type"] == "people":
+                    assert "from_context" in included["attributes"]
+                    assert included["attributes"]["from_context"] == "Hello World"
 
 
 def get_error_by_field(errors, field):

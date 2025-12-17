@@ -29,11 +29,12 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Programming Language :: Python :: 3 :: Only",
 ]
 license = "MIT"
 requires-python = ">=3.9"
-dependencies = ["marshmallow < 4", "flask>=2.2.0"]
+dependencies = ["marshmallow >= 4", "flask>=2.2.0", "packaging"]
 [project.urls]
 Source = "https://github.com/tadams42/marshmallow-jsonapi"
 Funding = "https://opencollective.com/marshmallow"
@@ -52,13 +53,14 @@ dev = [
     "pytest",
     "mock",
     "faker",
+    "ruff",
 ]
 
 
 [project.optional-dependencies]
 docs = [
-    "sphinx==3.5.3",
-    "sphinx-rtd-theme==0.5.0",
+    "sphinx",
+    "sphinx-rtd-theme",
     "sphinx-issues>=0.2.0",
     # "furo",
     # "myst-parser",

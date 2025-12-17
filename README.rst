@@ -3,9 +3,10 @@ marshmallow-jsonapi
 *******************
 
 ⚠️ I still need this package in some of my projects. This for is minimal  work required
-to keep it working with newer Pythons and tooling (`uv`). For the time being, I have no
-resources to invest into any major work on this. Therefore, it will not be upgraded to
-marshmallow 4 in foreseeable future.
+to keep it working
+
+- with newer Pythons and tooling (`uv`)
+- new `marshmallow` `v4.x`
 
 ⚠️ To allow integrating it in my projects, it is published on PyPI as
 `marshmallow-jsonapi-minfork`.
@@ -14,17 +15,9 @@ marshmallow 4 in foreseeable future.
     :target: https://pypi.org/project/marshmallow-jsonapi/
     :alt: PyPI version
 
-.. image:: https://dev.azure.com/sloria/sloria/_apis/build/status/marshmallow-code.marshmallow-jsonapi?branchName=dev
-    :target: https://dev.azure.com/sloria/sloria/_build/latest?definitionId=7&branchName=dev
-    :alt: Build status
-
 .. image:: https://readthedocs.org/projects/marshmallow-jsonapi/badge/
    :target: https://marshmallow-jsonapi.readthedocs.io/
    :alt: Documentation
-
-.. image:: https://badgen.net/badge/marshmallow/3
-    :target: https://marshmallow.readthedocs.io/en/latest/upgrading.html
-    :alt: marshmallow 3 compatible
 
 .. image:: https://badgen.net/badge/code%20style/black/000
     :target: https://github.com/ambv/black

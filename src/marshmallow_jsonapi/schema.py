@@ -1,12 +1,17 @@
 import itertools
 
 import marshmallow as ma
-from marshmallow.exceptions import ValidationError
+from marshmallow import ValidationError
 from marshmallow.utils import is_collection
 
-from .fields import BaseRelationship, DocumentMeta, ResourceMeta
-from .fields import _RESOURCE_META_LOAD_FROM, _DOCUMENT_META_LOAD_FROM
 from .exceptions import IncorrectTypeError
+from .fields import (
+    _DOCUMENT_META_LOAD_FROM,
+    _RESOURCE_META_LOAD_FROM,
+    BaseRelationship,
+    DocumentMeta,
+    ResourceMeta,
+)
 from .utils import resolve_params
 
 TYPE = "type"
@@ -118,7 +123,7 @@ class Schema(ma.Schema):
             if len(fields) > 1:
                 field.schema.check_relations(fields[1:])
 
-    @ma.post_dump(pass_many=True)
+    @ma.post_dump(pass_collection=True)
     def format_json_api_response(self, data, many, **kwargs):
         """Post-dump hook that formats serialized data as a top-level JSON API object.
 
@@ -188,7 +193,7 @@ class Schema(ma.Schema):
             payload[key] = value
         return payload
 
-    @ma.pre_load(pass_many=True)
+    @ma.pre_load(pass_collection=True)
     def unwrap_request(self, data, many, **kwargs):
         if "data" not in data:
             raise ma.ValidationError(

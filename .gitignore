@@ -52,3 +52,6 @@ venv
 .python-version
 
 uv.lock
+
+scratchpad
+*.code-workspace
