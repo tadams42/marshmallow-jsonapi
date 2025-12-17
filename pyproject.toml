@@ -6,7 +6,7 @@ requires = ["setuptools>=64", "wheel"]
 [project]
 description = "JSON API 1.0 (https://jsonapi.org) formatting with marshmallow"
 name = "marshmallow-jsonapi-minfork"
-version = "0.25.0"
+version = "0.26.0"
 readme = "README.rst"
 authors = [{ name = "Steven Loria", email = "sloria1@gmail.com" }]
 maintainers = [
