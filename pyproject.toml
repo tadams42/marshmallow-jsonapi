@@ -43,18 +43,7 @@ Documentation = "https://marshmallow-jsonapi.readthedocs.io/en/latest/"
 
 # Private, local dependencies
 [dependency-groups]
-dev = [
-    "black",
-    "bump2version",
-    "ipython",
-    "rich",
-    "pre-commit",
-    "check-manifest",
-    "pytest",
-    "mock",
-    "faker",
-    "ruff",
-]
+dev = ["ipython", "rich", "pytest", "mock", "faker"]
 
 
 [project.optional-dependencies]
